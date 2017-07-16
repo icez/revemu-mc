@@ -1,0 +1,940 @@
+here is a translation for "packet_table.txt".
+some corrections were made and jap chars were removed by Alpha Binary.
+if this has been useful to you, spread it on!
+
+i don't know for sure, but if you set account id around 704554,
+the ro client recognizes you as GM ( i don't know about other client like
+iro or something. this is talking about jro.)
+
+list of packet length. "-1" means a packet that have its packet length
+just after the packet number.
+
+   10,  0,  0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,  0,  0,
+    0,  0,  0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,  0,  0,
+    0,  0,  0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,  0,  0,
+    0,  0,  0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,  0,  0,
+
+    0,  0,  0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,  0,  0,
+    0,  0,  0,  0,  0,  0,  0,  0,   0,  0,  0,  0,  0,  0,  0,  0,
+    0,  0,  0,  0, 55, 17,  3, 37,  46, -1, 23, -1,  3,108,  3,  2,
+    3, 28, 19, 11,  3, -1,  9,  5,  52, 51, 56, 58, 41,  2,  6,  6,
+
+    7,  3,  2,  2,  2,  5, 16, 12,  10,  7, 29, 23, -1, -1, -1,  0,
+    7, 22, 28,  2,  6, 30, -1, -1,   3, -1, -1,  5,  9, 17, 17,  6,
+   23,  6,  6, -1, -1, -1, -1,  8,   7,  6,  7,  4,  7,  0, -1,  6,
+    8,  8,  3,  3, -1,  6,  6, -1,   7,  6,  2,  5,  6, 44,  5,  3,
+
+    7,  2,  6,  8,  6,  7, -1, -1,  -1, -1,  3,  3,  6,  3,  2, 27,
+    3,  4,  4,  2, -1, -1,  3, -1,   6, 14,  3, -1, 28, 29, -1, -1,
+   30, 30, 26,  2,  6, 26,  3,  3,   8, 19,  5,  2,  3,  2,  2,  2,
+    3,  2,  6,  8, 21,  8,  8,  2,   2, 26,  3, -1,  6, 27, 30, 10,
+
+
+    2,  6,  6, 30, 79, 31, 10, 10,  -1, -1,  4,  6,  6,  2, 11, -1,
+   10, 39,  4, 10, 31, 35, 10, 18,   2, 13, 15, 20, 68,  2,  3, 16,
+    6, 14, -1, -1, 21,  8,  8,  8,   8,  8,  2,  2,  3,  4,  2, -1,
+    6, 86,  6, -1, -1,  7, -1,  6,   3, 16,  4,  4,  4,  6, 24, 26,
+
+   22, 14,  6, 10, 23, 19,  6, 39,   6,  7,  6, 27, -1,  2,  6,  6,
+  110,  6, -1, -1, -1, -1, -1,  6,  -1, 54, 66, 54, 90, 42,  6, 42,
+   -1, -1, -1, -1, -1, 30, -1,  3,  14,  3, 30, 10, 43, 14,186,182,
+   14, 30, 10,  3, -1,  6,106, -1,   4,  5,  4, -1,  6,  7, -1, -1,
+
+    6,  3,106, 10, 10, 34,  0,  6,   8,  4,  4,  4, 29, -1, 10,  6,
+   90, 86, 24,  6, 30,102,  8,  4,   8,  4, 14, 10
+
+S means a packet that will be sent from client.
+R means a packet that will be received by client.
+B means a byte.
+w means word( 2 bytes)
+l means long word(4bytes)
+* means repeat
+
+
+S 0064 <version>.l <account name>.24B <password>.24B <version2>.B
+	send account id & password
+
+S 0065 <account ID>.l <login ID1>.l <login ID2>.l ?.2B <sex>.B
+	request connection to character select server
+
+S 0066 <charactor number>.B
+	request to select character
+
+S 0067 <charactor name>.24B <param etc>.11B
+	request to create new character
+
+S 0068 <charactor ID>.l <mail address>.40B
+	request to delete character
+
+R 0069 <len>.w <login ID1>.l <account ID>.l <login ID2>.l ?.32B <sex>.B {<IP>.l <port>.w <server name>.20B <login users>.l ?.2B}.32B*
+	information about a success of login to login server
+
+R 006a <error No>.B
+	fail to login to login server
+
+R 006b <len>.w <charactor select data>.106B*
+	information about a success of connection to character select server & character server
+	<charactor select data> = <charactor ID>.l <base exp>.l <zeny>.l <job exp>.l <job level>.l ?.8B <option>.l <karma>.l <manner>.l ?.2B <HP>.w <MaxHP>.w <SP>.w <MaxSP>.w <speed>.w <class>.w <hair>.w <weapon>.2w <base level>.w <skill point>.w <head_bottom>.w <sheild>.w <head option top>.w <head option mid>.w <hair color>.w ?.w <name>.24B <STR>.B <AGI>.B <VIT>.B <INT>.B <DEX>.B <LUK>.B <charactor number>.B ?.B
+
+R 006c <error No>.B
+	fail to select character
+
+R 006d <charactor select data>.106B
+	success to create new character
+
+R 006e <error No>.B
+	fail to create new character
+
+R 006f
+	success to delete character
+
+R 0070 <error No>.B
+	fail to delete character
+
+R 0071 <charactor ID>.l <map name>.16B <ip>.l <port>.w
+	success to select character & map name and ip/port number for game server
+
+S 0072 <account ID>.l <charactor ID>.l <login ID1>.l <login ID2>.l <sex>.b
+	request connection to game server
+
+R 0073 <server tick>.l <coordidate>.3B ?.2B
+	success to connect to game server & server time & spawn point
+
+R 0078 <ID>.l <speed>.w ?.w ?.w <option>.w <class>.w <hair>.w <weapon>.w <head option bottom>.w <sheild>.w <head option top>.w <head option mid>.w <hair color>.w ?.w <head dir>.w <guild>.w ?.w ?.w <manner>.w <karma>.w ?.B <sex>.B <X_Y_dir>.3B ?.B ?.B <sit>.B
+	player appears (comes in to view)
+
+R 0079 <ID>.l <speed>.w ?.w ?.w <option>.w <class>.w <hair>.w <weapon>.w <head option bottom>.w <sheild>.w <head option top>.w <head option mid>.w <hair color>.w ?.w <head dir>.w <guild>.w ?.w ?.w <manner>.w <karma>.w ?.B <sex>.B <X_Y_dir>.3B ?.B ?.B
+	player connected
+
+R 007b <ID>.l <speed>.w ?.w ?.w <option>.w <class>.w <hair>.w <weapon>.w <head option bottom>.w <server tick>.l <sheild>.w <head option top>.w <head option mid>.w <hair color>.w ?.w <head dir>.w <guild>.w ?.w ?.w <manner>.w <karma>.w ?.B <sex>.B <X_Y_X_Y>.5B ?.B ?.B ?.B
+	character information about walking in a range of the character can see
+
+R 007c <ID>.l <speed>.w ?.6w <class>.w ?.7w <X_Y>.3B ?.2B
+	player spawned
+
+S 007d
+	map load
+
+S 007e <client tick>.l
+	send 1ms timer at client
+
+R 007f <server tick>.l
+	send 1ms timer at server
+
+R 0080 <ID>.l <type>.B
+	type=00 character disappear( walk out of screen. died and disappear?)
+	type=01 character died
+	type=02 character disappear( teleport, fly's wing, butterfly's wing, logout?)
+
+R 0081 <type>.B
+	type=03 speed hack
+	type=06 needs refill
+	type=08 duplicated login
+
+S 0085 <X_Y>.3B
+	request to walk
+
+R 0087 <server tick>.l <X_Y_X_Y>.5B ?.B
+	response to the request to walk
+
+R 0088 <ID>.l <X>.w <Y>.w
+	stop walking
+
+S 0089 <target ID>.l <type>.B
+	type=00 hit target once
+	type=02 sit down
+	type=03 stand up
+	type=07 hit target continuously
+
+R 008a <src ID>.l <dst ID>.l <server tick>.l <src speed>.l <dst speed>.l <param1>.w <param2>.w <type>.B <param3>.w
+	type=00 param1=0 miss
+	type=00 param1:damage(of total?) param2:number of division  param3:damage of assasin's left hand
+		if the attack was by npc, param2 and param3 are not used
+		speed match the aspd if it's player character
+	type=01 pick up item, unused data except ID*2
+	type=02 sit down, no data used except src ID
+	type=03 stand up, no data used except src ID
+	type=08 multiple attack
+	type=0a critical attack
+	type=0b perfect evade
+
+S 008c <len>.w <str>.?B
+	send normal speech. it become a speech for chat during a chat
+	client adds "<nick> : " part. 
+
+R 008d <len>.w <ID>.l <str>.?B
+	receive a speech by ID. it become speech for chat during a chat
+
+R 008e <len>.w <str>.?B
+	receive my character's speech. it become speech for chat during a chat
+
+S 0090 <ID>.l <type?>.B
+	talk to npc. i havent seen type setted to 01.
+
+R 0091 <map name>.16B <X>.w <Y>.w
+	map change in the same server, for instance, teleport, fly's wing...
+
+R 0092 <map name>.16B <X>.w <Y>.w <IP>.l <port>.w
+	map change to the other server
+
+R 0093
+	this packet observed in august once. i dont know what it is.
+
+S 0094 <ID>.l
+	request a character name for ID. 0095 or 0195 response is expected.
+
+R 0095 <ID>.l <nick>.24B
+	response for 0094 request from npc or player character without guild.
+	0193	request by <charID>.l
+	0194	get response by <charID>.l <name>.24B
+
+S 0096 <len>.w <nick>.24B <message>.?B
+	send whisper
+
+R 0097 <len>.w <nick>.24B <message>.?B
+	receive whisper
+
+R 0098 <type>.B
+	type=00 success to send wisper
+	type=01 target character is not logged in
+	type=02 ignored by target
+
+R 009a <len>.w <message>.?B
+	GM announce
+
+S 009b <head dir>.w <dir>.B
+	request a change of head and body direction. no response to client (= client doesn't wait for reply).
+	dir can be 00-07 and it's for body direction. 00 means north and go counter-clockwise upto 07 by 45 degrees.
+	head dir can be 00,01,02. 00 means the same direction of body, 01 means right, 02 menas left.
+
+R 009c <ID>.l <head dir>.w <dir>.B
+	change body and head direction for ID.
+
+R 009d <ID>.l <item ID>.w <identify flag>.B <X>.w <Y>.w <amount>.w <subX>.B <subY>.B
+	when the item on the floor will appear on the screen by walking etc.
+
+R 009e <ID>.l <item ID>.w <identify flag>.B <X>.w <Y>.w <subX>.B <subY>.B <amount>.w
+	item drop. coordinate and amount is different from 009d.
+
+S 009f <ID>.l
+	pick up item on the floor.
+
+R 00a0 <index>.w <amount>.w <item ID>.w <identify flag>.B <attribute?>.B <refine>.B <card>.4w <equip type>.w <type>.B <fail>.B
+	fail=02 fail to pick up?
+	fail=06 no right to pick up. fail to pick up.
+
+R 00a1 <ID>.l
+	disappear the floor item
+
+S 00a2 <index>.w <amount>.w
+	drop inventory item.
+
+R 00a3 <len>.w {<index>.w <item ID>.w <type>.B <identify flag>.B <amount>.w ?.2B}.10B*
+	list of consumptive item and collecter item that you have
+
+R 00a4 <len>.w {<index>.w <item ID>.w <type>.B <identify flag>.B <equip type>.w <equip point>.w <attribute?>.B <refine>.B <card>.4w}.20B*
+	list of equipments that you have
+
+R 00a5 <len>.w {<index>.w <item ID>.w <type>.B <identify flag>.B <amount>.w ?.2B}.10B*
+	list of consumptive item and collecter item that you leave with kapra.
+
+R 00a6 <len>.w {<index>.w <item ID>.w <type>.B <identify flag>.B <equip type>.w <equip point>.w <attribute?>.B <refine>.B <card>.4w}.20B*
+	list of equipments that you leave with kapra.
+
+S 00a7 <index>.w <ID>.l
+	use index item with ID.
+
+R 00a8 <index>.w <amount>.w <type>.B
+	response to use item. type=00 means failed. amount is unused.
+	type=01 means success to use item, amount is a number of rest of the item.
+
+S 00a9 <index>.w <equip type>.w
+	equip item.
+
+R 00aa <index>.w <equip point>.w <type>.B
+	response to equip item. type=00 means fail. equip point is unused.
+
+S 00ab <index>.w
+	take off equipment.
+
+R 00ac <index>.w <equip point>.w <type>.B
+	response to take off equipment. type=00 means fail? equip point is unused.
+
+R 00af <index>.w <amount>.w
+	decrease number of item by amount.
+
+R 00b0 <type>.w <val>.l
+	update values of various status.
+	0000:speed
+	0003:carma
+	0004:manner point
+	0005:HP
+	0006:MaxHP
+	0007:SP
+	0008:MaxSP
+	0009:status point
+	000b:base level
+	000c:skill point
+	0018:weight(this number must be 10 times greater than it's normally displayed.)
+	0019:max weight(this number must be 10 times greater than it's been displayed.)
+	0029:attack in front
+	002a:attack in back
+	002b:matk in front
+	002c:matk in back
+	002d:defence in front
+	002e:deffence in back
+	002f:mdef in front
+	0030:mdef in back
+	0031:hit
+	0032:flee in front
+	0033:flee in back
+	0034: critical
+	0035:aspd(time by 2ms?)
+	0037:job level
+	0082:unknown. is it the same number as atk in back?
+
+R 00b1 <type>.w <val>.l
+	update values of various status. below is the list of corresponding type and value.
+	0001:base experience
+	0002:job experience
+	0014:zeny
+	0016:base experience that needed to level up
+	0017:job experience that needed to level up
+	in beta1, value of 00b0 was short and value of 00b1 was long,
+	but now there are no difference. 
+
+S 00b2 <type>.B
+	type=00 restart game when character died
+	type=01 request character select
+
+R 00b3 <type>.B
+	response to character select
+
+R 00b4 <len>.w <ID>.l <str>.?B
+	message from npc id
+
+R 00b5 <ID>.l
+	display the "NEXT" icon to npc message window
+
+R 00b6 <ID>.l
+	display the "CLOSE" icon to npc message window
+
+R 00b7 <len>.w <ID>.l <str>.?B
+	display select options in npc message window. each options devided by ":".
+
+S 00b8 <ID>.l <select>.B
+	select options in npc message window. number starts from 1 for each options. cancel for ff?
+
+S 00b9 <ID>.l
+	"NEXT" button clicked in ncp message window.
+
+S 00bb <type>.w <amount>.B
+	request update status. type can be 000d for STR, 000e for AGI, 000f for VIT, 0010 for INT, 0011 for DEX, 0012 for LUK.
+
+R 00bc <type>.w <fail>.B <val>.B
+	respnse to update status. it's succeed if fail=01. type is the same value as packet number 00bb. val is a value of increase.
+	it's unknown when it's failed because i havent ever seen. i think it will be fail=00 when it's failed.
+
+R 00bd <status point>.w <STR>.B <STRupP>.B <AGI>.B <AGIupP>.B <VIT>.B <VITupP>.B <INT>.B <INTupP>.B <DEX>.B <DEXupP>.B <LUK>.B <LUKupP>.B <ATK>.w <ATKbonus>.w <MATKmax>.w <MATKmin>.w <DEF>.w <DEFbonus>.w <MDEF>.w <MDEFbonus>.w <HIT>.w <FLEE>.w <FLEEbonus>.w <critical>.w ?.w
+	packet of information for various status.
+
+R 00be <type>.w <val>.B
+	packet to update required status point. type can be 0020-0025 for STR-LUK.( see packet number 00bb for detals.)
+
+S 00bf <type>.B
+	display emotion. type can be 00-0c(,0d) for ALT+1-ALT+9,ALT+0,CTRL+-,CTRL++,CTRL+\(,korean flag).
+
+R 00c0 <ID>.l <type>.B
+	emotion by ID. type is the same as 00bf.
+
+S 00c1
+	request to ask logged in people (/who).
+
+R 00c2 <val>.l
+	response to asking logged in people (/who).
+
+R 00c3 <ID>.l <type>.B <val>.B
+	change looks. type=00 means body(by jobs), 02 is weapon, 03 is head(lower), 04 is head(upper), 05 is head(middle), 08 is shield.
+
+R 00c4 <ID>.l
+	display "BUY" or "SELL" window by npc ID
+
+S 00c5 <ID>.l <type>.B
+	select "BUY" or "SELL". type=00 is buy, type=01 is sell.
+
+R 00c6 <len>.w {<value>.l <DCvalue>.l <type>.B <item ID>.w}.11B*
+	list of merchandizes when clicked "BUY". DCvalue is a value of Discount Skill applied.
+
+R 00c7 <len>.w {<index>.w <value>.l <OCvalue>.l}.10B*
+	list of items when clicked "SELL". OCvalue is a value of Over Charge Skill applied.
+
+S 00c8 <len>.w {<amount>.w <item ID>.w}.4B*
+	buy item from npc shop.
+
+S 00c9 <len>.w {<index>.w <amount>.w}.4B*
+	sell item to npc shop.
+
+R 00ca <type>.B
+	response for buying item. type=00 meanse successetion.
+
+R 00cb <type>.B
+	response for selling item. type=00 means success.
+
+S 00cf <nick>.24B <type>.B
+	type=00 deny speech from nick(/ex nick).
+	type=01 allow speech from nick(/in nick)
+
+S 00d0 <type>.B
+	type=00 ignore all speech(/exall)
+	type=01 allow all speech(/inall)
+
+R 00d1 <type>.B <fail>.B
+	fail=00 success to ignore speech
+	fail=01 fail to ignore speech
+
+R 00d2 <type>.B <fail>.B
+	fail=00 success to allow speech
+	fail=01 fail to allow speech
+
+S 00d5 <len>.w <limit>.w <pub>.B <passwd>.8B <title>.?B
+	create chat room.(from now on, im not sure for packets about chat.)
+
+R 00d6 <fail>.B
+	response to create chat room.
+
+R 00d7 <len>.w <owner ID>.l <chat ID>.l <limit>.w <users>.w <pub>.B <title>.?B
+	information for chat room in the screen.
+
+R 00d8 <chat ID>.l
+	delete chat room.
+
+S 00d9 <chat ID>.l <passwd>.8B
+	request to join the chat.
+
+R 00da <fail>.B
+	fail to join the chat.
+
+R 00db <len>.w <chat ID>.l {<index>.l <nick>.24B}.28B*
+	list of people in the chat room.
+
+R 00dc <users>.w <nick>.24B
+	add person to the chat room.
+
+R 00dd <index>.w <nick>.24B <fail>.B
+	leave the chat room.
+
+S 00de <len>.w <limit>.w <pub>.B <passwd>.8B <title>.?B
+	change chat room status.
+
+R 00df <len>.w <owner ID>.l <chat ID>.l <limit>.w <users>.w <pub>.B <title>.?B
+	success to change chat room status.
+
+S 00e0 ?.l <nick>.24B
+	request to change owner of the chat room?
+
+R 00e1 <index>.l <nick>.24B
+	re-number people in the chat room?
+
+S 00e2 <nick>.24B
+	kick nick from chat room.
+
+S 00e3
+	leave chat room.
+
+S 00e4 <ID>.l
+	request trade.
+
+R 00e5 <nick>.24B
+	recieve a request to trade.
+
+S 00e6 <type>.B
+	type=03 trade ok.
+	type=04 trade canceled.
+
+R 00e7 <fail>.B
+	response to requesting trade.
+	fail=00 too far.
+	fail=03 allowed the trade.
+	fail=04 trade canceled?
+
+S 00e8 <index>.w <amount>.l
+	add item. index=0 means adding zeny. for official client, zeny can be added only in packet number 00eb.
+
+R 00e9 <amount>.l <type ID>.w <identify flag>.B <attribute?>.B <refine>.B <card>.4w
+	added item from other character.
+
+R 00ea <index>.w <fail>.B
+	fail=00 success to add item.
+	fail=01 fail to add item. the player was overweighted.
+
+S 00eb
+	completed adding item.(cliecked OK)
+
+R 00ec <final>.B
+	final=00 recieved "OK" from myself
+	final=01 recieved "OK" from the other.
+
+S 00ed
+	trade canceled.
+
+R 00ee
+	message of "trade canceled"
+
+S 00ef
+	trade OKed. (cliecked Trade)
+
+R 00f0 ?.b
+	trade completed.
+
+R 00f2 <num>.w <limit>.w
+	number of item that kapra can stock and number of item that kapra stocks now.
+
+S 00f3 <index>.w <amount>.l
+	put item to kapra's warehouse.
+
+R 00f4 <index>.w <amount>.l <type ID>.w <identify flag>.B <attribute?>.B <refine>.B <card>.4w
+	add item to kapra's warehouse.
+
+S 00f5 <index>.w <amount>.l
+	take out item from kapra's warehouse.
+
+R 00f6 <index>.w <amount>.l
+	delete item in the kapra's warehouse.
+
+S 00f7
+	request to close kapra's warehouse.
+
+R 00f8
+	response to close kapra's warehouse.
+
+S 00f9 <party name>.24B
+	create party.
+
+R 00fa <fail>.B
+	fail=00 success to create party.
+
+R 00fb <len>.w <party name>.24B {<ID>.l <nick>.24B <map name>.16B <leader>.B <offline>.B}.46B*
+	packet for various information about party.
+
+S 00fc <ID>.l
+	invite player to the party.
+
+R 00fd <nick>.24B <fail>.B
+	fail=00 the player is already in other party.
+	fail=01 invitaion was denied.
+	fail=02 success to invite,
+
+R 00fe <ID>.l <party name>.24B
+	invited to party.
+
+S 00ff <ID>.l <fail>.l
+	response when player was invited to party. fail=1 means OK?
+
+R 0100
+	unknown. related to party?
+
+S 0101 <exp>.w <item?>.w
+	change party setting.
+
+R 0102 <exp>.w <item?>.w
+	party setting status. when exp=2, fail to share exp?
+
+R 0104 <ID>.l ?.l <X>.w <Y>.w <offline>.B <party name>.24B <nick>.24B <map name>.16B
+	information about a one player in th party.
+
+R 0105 <ID>.l <nick>.24B <fail>.B
+	nick leaves the party.
+
+R 0106 <ID>,l <HP>.w <MaxHP>.w
+	update HP of party members.
+
+R 0107 <ID>.l <X>.w <Y>.w
+	update coordinates of party members.
+
+S 0108 <len>.w <message>.?B
+	send speech for party memebers.
+
+R 0109 <len>.w <ID>.l <message>.?B
+	receive speech for party memebers.
+
+R 010a <type ID>.w
+	get MVP item.
+
+R 010b <exp>.l
+	get MVP experience.
+
+R 010c <ID>.l
+	display MVP character.
+
+R 010e <skill ID>.w <lv>.w <sp>.w <range>.w <up>.B
+	update skill sinformation. sp is unused?
+
+R 010f <len>.w {<skill ID>.w <target type>.w ?.w <lv>.w <sp>.w <range>.w <skill name>.24B <up>.B}.37B*
+	bunch of information about skill. some of skill name is not send (AL_PNEUMA, PR_SLOWPOISON etc).
+	target type is 0 for novice skill, 1 for enemy, 2 for place, 4 for immediate invoke, 16 for party member
+	it will not be on list when lv=0 up=0?
+
+R 0110 <skill ID>.w <basic type>.w ?.w <fail>.B <type>.B
+	fail to use skill when fail=00?
+	type 00:basic type 01:lack of SP, 02:lack of HP, 03:no memo, 04:in delay
+	05:lack of money, 06:weapon does not satisfy, 07:no red gem, 08:no blue gem, 09:unknown
+	basic type 00:trade 01:emotion 02:sit down, 03:chat, 04:party
+	05:shout? 06:PK, 07:manner point
+
+R 0111 <skill ID>.w <target type>.w ?.w <lv>.w <sp>.w <range>.w <skill name>.24B <up>.B
+	just one skill information. not used in beta2?
+
+S 0112 <skill ID>.w
+	request to skill level up.
+
+S 0113 <level>.w <skill ID>.w <ID>.l
+	use skill to the target.
+
+R 0114 <skill ID>.w <src ID>.l <dst ID>.l <server tick>.l <src speed>.l <dst speed>.l <param1>.w <param2>.w <param3>.w <type>.B
+	skill effect for attack.
+	type=04 observed when firewall was used. is that the almost same as type=06?
+	type=06 skill for just one hit? param1 is total damage, param2 is level, param3 will always stay 1.
+	type=08 skill for multiple hits? param1 is total damage, param2 is level, param3 will be a number of hit.
+
+R 0115 <skill ID>.w <src ID>.l <dst ID>.l <server tick>.l <src speed>.l <dst speed>.l <X>.w <Y>.w <param1>.w <param2>.w <param3>.w <type>.B
+	blow up type skill effect.
+	type=05 damage and blow up. param1 is total damage, param2 is level, param3 will be a number of hit.
+	type=06 a point of explorsion? param1 is unused at least.
+
+S 0116 <level>.w <skill ID>.w <X>.w <Y>.w
+	use skill at (X,Y).
+
+R 0117 <skill ID>.w <src ID>.l <val>.w <X>.w <Y>.w <server tick>.l
+	display skill effect at (X,Y). is val level? or how hard it is (like ice wall)?
+
+S 0118
+	cancel to attack
+
+R 0119 <ID>.l <param1>.w <param2>.w <param3>.w ?.B
+	change looks.
+	param1=02 frost diver 'ed
+	param2=01 poisoned
+	param2=20 ANGELUS?
+	param3-01 ruwach?
+	param3=0b hiding?
+	param3-0b cloking?
+	param3=0d with cart
+	param3-0e with hawk
+	param3=0f with pekopeko
+
+R 011a <skill ID>.w <val>.w <dst ID>.l <src ID>.l <fail>.B
+	display no-damage skill effect. val is an amount of HP restored when it's heal.
+	fail=00 must mean fail, but i havent seend it except steal.
+
+S 011b <skill ID>.w <map name>.16B
+	response to packet number 011c. send "cancel" for no-use.
+
+R 011c <skill ID>.w <map1>.16B <map2>.16B <map3>.16B <map4>.16B
+	select place for teleport or portal warp.
+	in case of teleport, Ramdom/save point will be sent,
+	in case of portal warp, save point/memo1/memo2/memo3 will be sent.
+	only map name wil be sent.
+
+S 011d
+	request to take a memo at this point.
+
+R 011e <fail>.B
+	fail=00 success to take memo.
+	fail=01 fail to take memo.
+
+R 011f <skill ID>.l <src ID>.l <X>.w <Y>.w <type>.B <fail>.B
+	create ground effect for skills like firewall.
+	type 7e:SW, 7f:firewall, 80:portal warp(invoking), 81:portal warp(before invoking), 83:sanctuary, 85:pneuma
+	86: lord of vermillion, 8c:talkie box(invoked), 8d:frost diver, 8e:quagmire, 91:ancle snare
+	93:land mine, 97:??, 99:talkie box(befor invoked)
+
+R 0120 <ID>.l
+	delete ground effect.
+
+R 0121 <num>.w <num limit>.w <weight>.l <weight limit>l
+	kind of cart, weight and max weight.
+
+R 0122 <len>.w {<index>.w <item ID>.w <type>.B <identify flag>.B <equip type>.w <equip point>.w <attribute?>.B <refine>.B <card>.4w}.20B*
+	equipments in cart.
+
+R 0123 <len>.w {<index>.w <item ID>.w <type>.B <identify flag>.B <amount>.w ?.2B}.10B*
+	consumptive and collector items in cart.
+
+R 0124 <index>.w <amount>.l <item ID>.w <identify flag>.B <attribute?>.B <refine>.B <card>.4w
+	add item to cart.
+
+R 0125 <index>.w <amount>.l
+	delete item in cart.
+
+S 0126 <index>.w <amount>.l
+	put item to cart.
+
+S 0127 <index>.w <amount>.l
+	take out item from cart.
+
+S 0128 <index>.w <amount>.l
+	move item from kapra's warehouse to cart.
+
+S 0129 <index>.w <amount>.l
+	move item from cart to kapra's warehouse.
+
+R 012c <fail>.B
+	fail=00 overweight, could not add item to cart.
+
+R 012d <num>.w
+	create shop (merchant skill). request item list. num is a number of kind of item that can be sold.
+
+S 012e
+	close shop.
+
+S 012f <len>.w <message>.80B {<index>.w <amount>.w <value>.l}.8B*
+	create shop, shop name, item, price list.
+
+S 0130 <ID>.l
+	request item list for shop( not npc shop).
+
+R 0131 <ID>.l <message>.80B
+	display shop name tag.
+
+R 0132 <ID>.l
+	delete shop name tag.
+
+R 0133 <len>.w <ID>.l {<value>.l <amount>.w <index>.w <type>.B <item ID>.w <identify flag>.B <attribute?>.B <refine>.B <card>.4w}.22B
+	item list for shop(not npc shop).
+
+S 0134 <len>.w <ID>.l {<amount>.w <index>.w}.4B*
+	buy item from shop (not npc).
+
+R 0135 <index>.w <amount>.w <fail>.B
+	fail to buy item from non npc shop. fail tells you the reason.
+
+R 0136 <len>.w <ID>.l {<value>.l <index>.w <amount>.w <type>.B <item ID>.w <identify flag>.B <attribute?>.B <refine>.B <card>.4w}.22B*
+	success to create non-npc-shop.
+
+R 0137 <index>.w <amount>.w
+	report of selling item.
+
+R 0139 <ID>.l <X>.w <Y>.w <X2>.w <Y2>.w <range>.w
+	the enemy at(X,Y) was too far to attack from my coordinate (X2,Y2).
+	possible range to attack enemy is "range", so be closer?
+
+R 013a <val>.w
+	attack range.
+
+R 013b <type>.w
+	various message. 3="arrow has been equiped"
+
+R 013c <ID>.w
+	item index of equiped arrow. 0 means no arrow is equiped.
+
+R 013d <type>.w <val>.w
+	recovery of HP/SP by HP/SP recovery skill.
+	type=5 is HP, type=7 is SP.
+
+R 013e <src ID>.l <dst ID>.l <X>.w <Y>.w <lv?>.w <Attr>.w <wait>.l
+	skill has been casting. (X,Y) will be 0 when target is player character or NPC. dst ID will be 0 when target is place.
+	offset+16(dword) in packet number 0x013e is skill attribute.
+	00:none, 01:water, 02:ground, 03:fire, 04:wind, 05:poison, 06:holy, 07:dark, 08:spirit, 09:death
+	casting effect might differ by skill attribute in the future.
+	wait in mili second?
+R 0141 <type>.l <base>.l <bonus>.l
+	information for status. type is 0d-12 for STR,AGI,VIT,INT,DEX,LUK.
+	base+bonus will be displayed.
+R 0144 <ID>.l <type>.l <X>.l <Y>.l <point ID>.B <color>.3B ?.B
+	for guide npc, packet for display mark on mini-map.
+	type=1 display icon.
+	type=2 delete icon.
+R 0145 <file name>.16B <type>.B
+	display kapra picture(at this time).
+	type=02 display.
+	type=ff delete.
+S 0146 <ID>.l
+	talk to npc with ID. Clicked CLOSE button.
+R 0147 <skill ID>.w <target type>.w ?.w <lv>.w <sp>.w <range>.w <skill name>.24B <up>.B
+	effect for skill by using item.
+S 0148 <ID>.l
+	decide target of a skill resurruction in beta1.
+S 0149 <ID>.l <type>.B
+	give manner point to ID. type=00 is plus, type=01 is minus.
+R 014a <fail>.l
+	result of giving manner point. fail=0 is success, fail=1 is fail.
+R 014b <type>.B <nick>.24B
+	get manner point. type=00 is plus, type-01 is minus.
+R 014C <len>.w (<type>.l <guildID>.l <guild name>.24B).*
+	display alliance and opposition guild.
+	type=0 alliance.
+	type=1 opposition.
+S 014D
+		start of guild information?
+R 014E <type?>.l
+	type=0x57 normal guild member.
+	type=0xD7 guild master.
+S 014F <page>.l
+		send packet for guild "DISPLAY" tab.
+R 0150 <guildID>.l <guildLv>.l <connum>.l <’èˆõ>.l <Avl.lvl>.l ?.l <next_exp>.l ?.16B <guild name>.24B <guild master>.24B ?.16B
+		guild info.
+S 0151 <guild ID>.l
+	request for guild emblem.
+R 0152 <len>.w <guild ID>.l <emblem ID?>.l <emblem data>.?B
+	return emblem image.
+R 0154 <len>.w {<accID>.l <charactorID>.l <hair type>.w <hair color>.w <sex>.w <job>.w <lvl?>.w <guild exp>.l <online>.l <Position>.l ?.50B <nick>.24B}*
+	guild member list?
+S 0159 <guildID>.l <accID>.l <charID>.l <mess>.40B
+		send packet for leaving guild.
+R 015A <nic>.24B <mess>.40B
+		receive packet for leaving guild(all members).
+S 015B <guildID>.l <accID>.l <charID>.l <mess>.40B
+		send packet for kicking member out of the guild.
+R 015C <nick>.24B <mess>.40B <ƒAƒJƒEƒ“ƒg‚h‚c>.24B
+		receive packet for kicking member out of the guild.(all member)
+R 0163 <len>.w <nick>.24B <accountID>.24B <kicking reason>.40B
+
+S 0165 <myaccID>.l <guild name>.24B
+		create guild
+R 0166 <len>.w ?.28B*
+	list for roll of members?
+R 0167 <type>.b
+	response to creating guild.
+	type = 0 success.
+	type = 2 there is a guild with the same name.
+S 0168 <TargetAccID>.l <sourceAccID>.l <myCharactorID>.l
+	invite to the guild.
+R 0169 <type>.B
+	invitation denied.
+R 016A <guild ID>.l <guild name>.24B
+	invited to the guild.
+S 016B <guild ID>.l <type>.l
+	response to invitaion for joining to guild.
+	type=0 deny.
+	type=1 OK.
+R 016c <guild ID>.l ?.13B <guild name>.24B
+	guild information when loged in.
+R 016d <ID>.l <charactor ID>.l <online>.l
+	information about guild member loged in or loged out etc.
+R 016f <message>.180B
+	guild message?
+S 016E <guildID>.l <mess1>.60B <mess2>.120B
+	set guild announcement.
+R 016F <mess1>.60B <mess2>.120B
+	guild announcement.
+S 0170 <TargetAccID>.l <sourceAccID>.l <myCharactorID>.l
+	invite the guild to be alliance.
+R 0171 <SourceAccID>.l <guild name>.24B
+	invited to be a alliance.
+S 0172 <SourceAccID>.l <type>.l
+		response for invitiation to be alliance.
+	type=0 deny.
+	type=1 OK.
+R 0173 <type>.B
+	type = 0 the guild is already alliance.
+	type = 1 denied to be alliance.
+	type = 2 success to invite to be alliance.
+R 0177 <len>.w <index>.w*
+	list of items that need to be identify ( i mean unknown items) when an amplifier is used.
+S 0178 <index>.w
+	identify item.
+R 0179 <index>.w <fail>.B
+	response to identifying item. fail=00 is success. is there fail=01?
+S 017A <index>.w
+	card is double clicked.
+R 017B <len>.w {<index>.w}*
+	item index number for items that can be inserted card.
+S 017C <SrcIndex>.w <DescIndex>.w
+	insert Src to Desc.
+R 017D <DescIndex>.w <SrcIndex>.w <fail>.b
+	response to insert Src to Desc. fail=0 is success, fail=01 is fail?
+S 017e <len>.w <message>.?B
+	send speech for guild members.
+R 017f <len>.w <message>.?B
+	receive guild message.
+R 0182 <accID>.l <charactorID>.l <hair type>.w <hair color>.w <sex?>.w <job>.w <lvl?>.w <experience?>.l <online>.l <Position>.l ?.50B <nick>.24B
+	
+R 0187 <account ID>.l
+	alive signal?
+R 0188 <fail?>.w <index>.w <val>.w
+	weapon refining. result+val to weapon
+R 0189 ?.w
+	unknown. fail to teleport?
+S 018a ?.w
+	game quited.
+R 018b <fail>.w
+	game quited/select character response. fail=0 is success, fail=1 is fail?
+R 018C <MonsID>.w <class>.w <size>.w <HP>.w <?>.w <defence>.w <kind of monster>.w <magic deffence>.w <attribute>.w <anti-attribute?>.9b
+	response to sense skill by wizard.
+	0 small
+	1 medium
+	2 big
+R 0191 <ID>.l <message>.80B
+	message of talky box.
+S 0193 <ID>.l
+	name search for guild member?
+R 0194 <ID>.l <nick>.24B
+	response to name search for guild member?
+R 0195 <ID>.l <nick>.24B <party name>.24B <guild name>.24B <class name>.24B
+	response to packet number 0094 if the player has a guild.
+R 0196 <type>.w <ID>.l
+	various message of skill that effect status. ID must be target, but only my ID and other's ID are sent?
+	type=00	2HQ casted. "attack speed insreased."
+	type=01	2HQ ended. "attack speed decreased."
+	type=02 IMPOSITIO casted. "power of the weapon increased."
+	type=03 IMPOSITIO ened. "power of the weapon decreased."
+	type=04	"casting delay become short"
+	type=05	"casting delay return to defailt"
+	type=06	"attribute of poison is given to the weapon"
+	type=07 ASPERSIO casted. "attribute of holly is given to the weapon"
+	type=08 ASPERSIO ended. "attribute of weapon return to default"
+	type=09	"armor got holy attribute"
+	type=0a	"armor's attribute return to default"
+	type=0b KYRIE casted. "barrier"
+	type=0c KYRIE ended. "barrier end"
+	type=0d	"became weapon perfection mode"
+	type=0e	"end weapon perfection mode"
+	type=0f	"became over trust mode"
+	type=10	"end over trust mode"
+	type=11	"became maximize power mode"
+	type=12	"end maximize power mode"
+S 0197 <type>.w
+	type=0 /resetstate
+	type=1 /resetskill
+	no effect?
+R 019b <ID>.l <type>.l
+	display other's level up effect or weapon refining?
+	type=0 base lvup?
+	type=1 job lvup?
+	type=3 weapon refining
+R 0199 <type>.w
+	type=1 start pvp mode?
+R 019a <ID>.l <rank>.l <num>.l
+		pvp rank rank/num
+S 00CC <ID>.l
+	use special right click menu for GM "(name) force to quit"
+S 0149 <ID>.l <type>.B <time>.w
+	use special right click menu for GM "decrease prohibited time to chat". type=00
+	use special right click menu for GM "increase prohibited time to chat". type=01
+		unit is minute (maybe)
+
+added packet lenth. 019e-01aa is a new, so here is a packet length table from 0190.
+
+ 90, 86, 24,6, 30,102,8,4, 8,4, 14, 10, -1,6,2,6,
+3,3, 35,5, 11, 26, -1,4, 4,6, 10
+
+
+
+below is a draft result from some packet analysis by Alpha Binary.
+in TRO ep50 lots and lots of packets have changed. my bot didn't function properly
+and this kind of information are hardly declared, so i decide to study them myself.
+
+hope this helps!
+
+
+R 01D8 (54 bytes) <ID>.l <speed>.w ?.w ?.w <option>.w <class>.w <hair>.w <weapon>.w <head option bottom>.w <sheild>.w <head option top>.w <head option mid>.w <hair color>.w ?.w <head dir>.w <guild>.w ?.w ?.w <manner>.w <karma>.w ?.B <sex>.B <X_Y_dir>.3B ?.B ?.B <sit>.B
+	player appears (comes in to view)
+
+R 01D9 (53 bytes) <ID>.l <speed>.w ?.w ?.w <option>.w <class>.w <hair>.w <weapon>.w <head option bottom>.w <sheild>.w <head option top>.w <head option mid>.w <hair color>.w ?.w <head dir>.w <guild>.w ?.w ?.w <manner>.w <karma>.w ?.B <sex>.B <X_Y_dir>.3B ?.B ?.B
+	player connected
+
+R 01DA (60 bytes) <ID>.l <speed>.w ?.w ?.w <option>.w <class>.w <hair>.w <weapon>.w <head option bottom>.w <server tick>.l <sheild>.w <head option top>.w <head option mid>.w <hair color>.w ?.w <head dir>.w <guild>.w ?.w ?.w <manner>.w <karma>.w ?.B <sex>.B <X_Y_X_Y>.5B ?.B ?.B ?.B
+	character information about walking in a range of the character can see
+
+
+note: i personally believe that the above three packets are replacements for 0078, 0079, and 007B, as they are the same in lenght. after checking for several more times i came to a conclusion that the structure are quite similar, although not exactly the same. 0078, 0079, and 007B themselves also changed a bit, having a little ?.w added to the bottom. no players use them any more, monsters do.

@@ -1,0 +1,502 @@
+[Root]
+Most Recent Package=Revemu
+
+
+[Package|Dep File 1|K- Bot 0.61]
+Icon1=kynebot.exe
+Title1=K- Bot 0.61
+StartIn1=$(AppPath)
+Key1=Icon1
+
+[Package|Dep File 1|Root]
+SubWizProgID=PDWizard.DepPkgSubWiz
+BuildFolder=D:\Kyne's Bot\package
+
+[Package|Dep File 1|Configure DAO ISAMs]
+Applicable=No
+
+[Package|Dep File 1|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Dep File 1|Files Found]
+
+[Package|Dep File 1|Files Released]
+
+[Package|Dep File 1|Missing Dependency Information]
+C:\Program Files\Common Files\System\ado\msado25.tlb=
+D:\Kyne's Bot\desdll.dll=
+
+[Package|Dep File 1|Out-of-Date Dependency Information]
+C:\WINDOWS\system32\COMCT332.OCX=
+C:\WINDOWS\system32\msstdfmt.dll=
+
+[Package|Dep File 1|Files Added]
+D:\Kyne's Bot\skillslot\Skill.txt=
+D:\Kyne's Bot\skillslot\slot1.txt=
+
+[Package|Dep File 1|Files Removed]
+c:\program files\common files\system\ado\msado25.tlb=
+
+[Package|Dep File 1|Files In Project]
+D:\Kyne's Bot\kynebot.exe=Yes
+C:\WINDOWS\system32\msvbvm60.dll=Yes
+C:\WINDOWS\system32\oleaut32.dll=Yes
+C:\WINDOWS\system32\olepro32.dll=Yes
+C:\WINDOWS\system32\asycfilt.dll=Yes
+C:\WINDOWS\system32\stdole2.tlb=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+D:\Kyne's Bot\desdll.dll=Yes
+C:\WINDOWS\system32\MSWINSCK.OCX=Yes
+C:\WINDOWS\system32\MSCOMCTL.OCX=Yes
+C:\Program Files\Common Files\designer\MSDERUN.DLL=Yes
+C:\Program Files\Common Files\System\ado\msado25.tlb=No
+C:\WINDOWS\system32\msstdfmt.dll=Yes
+C:\WINDOWS\system32\COMCT232.OCX=Yes
+C:\WINDOWS\system32\MSCOMCT2.OCX=Yes
+C:\WINDOWS\system32\COMCT332.OCX=Yes
+C:\Program Files\Common Files\System\ado\msado15.dll=Yes
+D:\Kyne's Bot\skillslot\Skill.txt=Yes
+D:\Kyne's Bot\skillslot\slot1.txt=Yes
+
+[Package|Dep File 1|Configure Registry Files]
+Applicable=No
+
+[Package|Dep File 1|Configure Remote Servers]
+Applicable=No
+
+[Package|Dep File 1|Install Locations]
+D:\Kyne's Bot\kynebot.exe=$(AppPath)
+C:\WINDOWS\system32\msvbvm60.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\oleaut32.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\olepro32.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\asycfilt.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\stdole2.tlb=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+D:\Kyne's Bot\desdll.dll=$(WinSysPath)
+C:\WINDOWS\system32\MSWINSCK.OCX=$(WinSysPath)
+C:\WINDOWS\system32\MSCOMCTL.OCX=$(WinSysPath)
+C:\Program Files\Common Files\designer\MSDERUN.DLL=$(CommonFiles)\designer
+C:\Program Files\Common Files\System\ado\msado25.tlb=$(WinSysPath)
+C:\WINDOWS\system32\msstdfmt.dll=$(WinSysPath)
+C:\WINDOWS\system32\COMCT232.OCX=$(WinSysPath)
+C:\WINDOWS\system32\MSCOMCT2.OCX=$(WinSysPath)
+C:\WINDOWS\system32\COMCT332.OCX=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=$(AppPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\WINDOWS\system32\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+C:\Program Files\Common Files\System\ado\msado15.dll=$(CommonFilesSys)\ADO
+D:\Kyne's Bot\skillslot\Skill.txt=$(AppPath)
+D:\Kyne's Bot\skillslot\slot1.txt=$(AppPath)
+
+[Package|Dep File 1|Configure Shared Files]
+Applicable=Yes
+D:\Kyne's Bot\kynebot.exe=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=Yes
+
+[Package|Dep File 1|Distribution]
+Type=single
+Size=1.44 MB
+Title=K- Bot 0.88.61
+
+[Package|Dep File 1|IconGroups]
+Group0=K- Bot
+PrivateGroup0=False
+Parent0=$(Programs)
+
+[Package|Dep File 1|K- Bot]
+Icon1=kynebot.exe
+Title1=K- Bot 0.88.61
+StartIn1=$(AppPath)
+Key1=Icon1
+
+[Package|Dep File 1|DepFile]
+DepCabFile=kynebot.CAB
+DepCabRun=kynebot.INF
+
+[Package|Dep File 1|Package]
+PackageFolder=D:\Kyne's Bot\package
+ProjectFolder=D:\Kyne's Bot
+ServerSideCab=
+File1=D:\Kyne's Bot\package\kynebot.DEP
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz
+
+[Package|K-Bot|K- Bot 0.61]
+Icon1=kynebot.exe
+Title1=K- Bot 0.61
+StartIn1=$(AppPath)
+Key1=Icon1
+
+[Package|K-Bot|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=D:\Kyne's Bot\package
+
+[Package|K-Bot|Configure DAO ISAMs]
+Applicable=No
+
+[Package|K-Bot|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|K-Bot|Files Found]
+
+[Package|K-Bot|Files Released]
+
+[Package|K-Bot|Missing Dependency Information]
+C:\Program Files\Common Files\System\ado\msado25.tlb=
+D:\Kyne's Bot\desdll.dll=
+
+[Package|K-Bot|Out-of-Date Dependency Information]
+C:\WINDOWS\system32\COMCT332.OCX=
+C:\WINDOWS\system32\msstdfmt.dll=
+
+[Package|K-Bot|Files Added]
+D:\Kyne's Bot\skillslot\Skill.txt=
+D:\Kyne's Bot\skillslot\slot1.txt=
+D:\Kyne's Bot\skillslot\slot2.txt=
+D:\Kyne's Bot\skillslot\slot3.txt=
+D:\Kyne's Bot\skillslot\weapon.txt=
+D:\Kyne's Bot\table\Attack.txt=
+D:\Kyne's Bot\table\Itemname.txt=
+D:\Kyne's Bot\table\MapName.txt=
+D:\Kyne's Bot\table\Monsters.txt=
+D:\Kyne's Bot\table\options.ini=
+D:\Kyne's Bot\table\Sell.txt=
+D:\8840\table\user.dat=
+
+[Package|K-Bot|Files Removed]
+c:\program files\common files\system\ado\msado25.tlb=
+
+[Package|K-Bot|Files In Project]
+D:\Kyne's Bot\kynebot.exe=Yes
+C:\WINDOWS\system32\msvbvm60.dll=Yes
+C:\WINDOWS\system32\oleaut32.dll=Yes
+C:\WINDOWS\system32\olepro32.dll=Yes
+C:\WINDOWS\system32\asycfilt.dll=Yes
+C:\WINDOWS\system32\stdole2.tlb=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+D:\Kyne's Bot\desdll.dll=Yes
+C:\WINDOWS\system32\MSWINSCK.OCX=Yes
+C:\WINDOWS\system32\MSCOMCTL.OCX=Yes
+C:\Program Files\Common Files\designer\MSDERUN.DLL=Yes
+C:\Program Files\Common Files\System\ado\msado25.tlb=No
+C:\WINDOWS\system32\msstdfmt.dll=Yes
+C:\WINDOWS\system32\COMCT232.OCX=Yes
+C:\WINDOWS\system32\MSCOMCT2.OCX=Yes
+C:\WINDOWS\system32\COMCT332.OCX=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\WINDOWS\system32\VB6STKIT.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+D:\Kyne's Bot\skillslot\Skill.txt=Yes
+D:\Kyne's Bot\skillslot\slot1.txt=Yes
+D:\Kyne's Bot\skillslot\slot2.txt=Yes
+D:\Kyne's Bot\skillslot\slot3.txt=Yes
+D:\Kyne's Bot\skillslot\weapon.txt=Yes
+D:\Kyne's Bot\table\Attack.txt=Yes
+D:\Kyne's Bot\table\Itemname.txt=Yes
+D:\Kyne's Bot\table\MapName.txt=Yes
+D:\Kyne's Bot\table\Monsters.txt=Yes
+D:\Kyne's Bot\table\options.ini=Yes
+D:\Kyne's Bot\table\Sell.txt=Yes
+D:\8840\table\user.dat=Yes
+
+[Package|K-Bot|Configure Registry Files]
+Applicable=No
+
+[Package|K-Bot|Configure Remote Servers]
+Applicable=No
+
+[Package|K-Bot|Install Locations]
+D:\Kyne's Bot\kynebot.exe=$(AppPath)
+C:\WINDOWS\system32\msvbvm60.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\oleaut32.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\olepro32.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\asycfilt.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\stdole2.tlb=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+D:\Kyne's Bot\desdll.dll=$(WinSysPath)
+C:\WINDOWS\system32\MSWINSCK.OCX=$(WinSysPath)
+C:\WINDOWS\system32\MSCOMCTL.OCX=$(WinSysPath)
+C:\Program Files\Common Files\designer\MSDERUN.DLL=$(CommonFiles)\designer
+C:\Program Files\Common Files\System\ado\msado25.tlb=$(WinSysPath)
+C:\WINDOWS\system32\msstdfmt.dll=$(WinSysPath)
+C:\WINDOWS\system32\COMCT232.OCX=$(WinSysPath)
+C:\WINDOWS\system32\MSCOMCT2.OCX=$(WinSysPath)
+C:\WINDOWS\system32\COMCT332.OCX=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=$(AppPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\WINDOWS\system32\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+D:\Kyne's Bot\skillslot\Skill.txt=$(AppPath)
+D:\Kyne's Bot\skillslot\slot1.txt=$(AppPath)
+D:\Kyne's Bot\skillslot\slot2.txt=$(AppPath)
+D:\Kyne's Bot\skillslot\slot3.txt=$(AppPath)
+D:\Kyne's Bot\skillslot\weapon.txt=$(AppPath)
+D:\Kyne's Bot\table\Attack.txt=$(AppPath)
+D:\Kyne's Bot\table\Itemname.txt=$(AppPath)
+D:\Kyne's Bot\table\MapName.txt=$(AppPath)
+D:\Kyne's Bot\table\Monsters.txt=$(AppPath)
+D:\Kyne's Bot\table\options.ini=$(AppPath)
+D:\Kyne's Bot\table\Sell.txt=$(AppPath)
+D:\8840\table\user.dat=$(AppPath)
+
+[Package|K-Bot|Configure Shared Files]
+Applicable=Yes
+D:\Kyne's Bot\kynebot.exe=No
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=No
+D:\Kyne's Bot\skillslot\Skill.txt=No
+D:\Kyne's Bot\skillslot\slot1.txt=No
+D:\Kyne's Bot\skillslot\slot2.txt=No
+D:\Kyne's Bot\skillslot\slot3.txt=No
+D:\Kyne's Bot\skillslot\weapon.txt=No
+D:\Kyne's Bot\table\Attack.txt=No
+D:\Kyne's Bot\table\Itemname.txt=No
+D:\Kyne's Bot\table\MapName.txt=No
+D:\Kyne's Bot\table\Monsters.txt=No
+D:\Kyne's Bot\table\options.ini=No
+D:\Kyne's Bot\table\Sell.txt=No
+D:\8840\table\user.dat=No
+
+[Package|K-Bot|Distribution]
+Type=single
+Size=1.44 MB
+Title=K- Bot 0.88.61
+
+[Package|K-Bot|Package]
+PackageFolder=D:\Kyne's Bot\package
+ProjectFolder=D:\Kyne's Bot
+ServerSideCab=
+File1=D:\Kyne's Bot\package\setup.exe
+File2=D:\Kyne's Bot\package\Setup.Lst
+File3=D:\Kyne's Bot\package\kynebot.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz
+
+[Package|K-Bot|IconGroups]
+Group0=K- Bot
+PrivateGroup0=False
+Parent0=$(Programs)
+
+[Package|K-Bot|K- Bot]
+Icon1=kynebot.exe
+Title1=K- Bot 0.88.61
+StartIn1=$(AppPath)
+Key1=Icon1
+
+
+[Package|Revemu|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=C:\revmeu\Package
+
+[Package|Revemu|Configure DAO ISAMs]
+Applicable=No
+
+[Package|Revemu|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Revemu|Files Found]
+
+[Package|Revemu|Files Released]
+
+[Package|Revemu|Missing Dependency Information]
+
+[Package|Revemu|Out-of-Date Dependency Information]
+C:\WINDOWS\system32\MSCOMCTL.OCX=
+C:\WINDOWS\system32\MSWINSCK.OCX=
+
+[Package|Revemu|Files Added]
+c:\revmeu\table\attack.txt=
+c:\revmeu\table\data.grf=
+c:\revmeu\table\itemd.txt=
+c:\revmeu\table\mapname.txt=
+c:\revmeu\table\options.ini=
+c:\revmeu\table\sell.txt=
+c:\revmeu\table\skilld.txt=
+c:\revmeu\table\skillname.txt=
+c:\revmeu\table\user.dat=
+C:\revmeu\table\data.zip=
+C:\revmeu\interface\bt_cancel.gif=
+C:\revmeu\interface\bt_cancel_c.gif=
+C:\revmeu\interface\bt_cancel_h.gif=
+C:\revmeu\interface\bt_close.gif=
+C:\revmeu\interface\bt_info.gif=
+C:\revmeu\interface\bt_info_c.gif=
+C:\revmeu\interface\bt_jobup.gif=
+C:\revmeu\interface\bt_jobup_c.gif=
+C:\revmeu\interface\bt_login.gif=
+C:\revmeu\interface\bt_login_c.gif=
+C:\revmeu\interface\bt_ok.gif=
+C:\revmeu\interface\bt_ok_c.gif=
+C:\revmeu\interface\bt_sell.gif=
+C:\revmeu\interface\bt_sell_c.gif=
+C:\revmeu\interface\bt_use.gif=
+C:\revmeu\interface\bt_use_c.gif=
+
+[Package|Revemu|Files Removed]
+c:\revmeu\table\data.zip=
+
+[Package|Revemu|Files In Project]
+C:\revmeu\revemu.exe=Yes
+C:\WINDOWS\system32\msvbvm60.dll=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+C:\revmeu\desdll.dll=Yes
+C:\WINDOWS\system32\MSWINSCK.OCX=Yes
+C:\WINDOWS\system32\MSCOMCTL.OCX=Yes
+C:\Program Files\Common Files\designer\MSDERUN.DLL=Yes
+C:\Program Files\Common Files\System\ado\msado25.tlb=Yes
+C:\WINDOWS\system32\msstdfmt.dll=Yes
+C:\WINDOWS\system32\COMCT232.OCX=Yes
+C:\WINDOWS\system32\MSCOMCT2.OCX=Yes
+C:\WINDOWS\system32\COMCT332.OCX=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\WINDOWS\system32\VB6STKIT.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+C:\revmeu\table\Attack.txt=Yes
+C:\revmeu\table\data.grf=Yes
+C:\revmeu\table\ItemD.txt=Yes
+C:\revmeu\table\MapName.txt=Yes
+C:\revmeu\table\options.ini=Yes
+C:\revmeu\table\Sell.txt=Yes
+C:\revmeu\table\SkillD.txt=Yes
+C:\revmeu\table\Skillname.txt=Yes
+C:\revmeu\table\user.dat=Yes
+C:\revmeu\table\data.zip=No
+C:\revmeu\interface\bt_cancel.gif=Yes
+C:\revmeu\interface\bt_cancel_c.gif=Yes
+C:\revmeu\interface\bt_cancel_h.gif=Yes
+C:\revmeu\interface\bt_close.gif=Yes
+C:\revmeu\interface\bt_info.gif=Yes
+C:\revmeu\interface\bt_info_c.gif=Yes
+C:\revmeu\interface\bt_jobup.gif=Yes
+C:\revmeu\interface\bt_jobup_c.gif=Yes
+C:\revmeu\interface\bt_login.gif=Yes
+C:\revmeu\interface\bt_login_c.gif=Yes
+C:\revmeu\interface\bt_ok.gif=Yes
+C:\revmeu\interface\bt_ok_c.gif=Yes
+C:\revmeu\interface\bt_sell.gif=Yes
+C:\revmeu\interface\bt_sell_c.gif=Yes
+C:\revmeu\interface\bt_use.gif=Yes
+C:\revmeu\interface\bt_use_c.gif=Yes
+
+[Package|Revemu|Configure Registry Files]
+Applicable=No
+
+[Package|Revemu|Configure Remote Servers]
+Applicable=No
+
+[Package|Revemu|Install Locations]
+C:\revmeu\revemu.exe=$(AppPath)
+C:\WINDOWS\system32\msvbvm60.dll=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\revmeu\desdll.dll=$(WinSysPath)
+C:\WINDOWS\system32\MSWINSCK.OCX=$(WinSysPath)
+C:\WINDOWS\system32\MSCOMCTL.OCX=$(WinSysPath)
+C:\Program Files\Common Files\designer\MSDERUN.DLL=$(CommonFiles)\designer
+C:\Program Files\Common Files\System\ado\msado25.tlb=$(WinSysPath)
+C:\WINDOWS\system32\msstdfmt.dll=$(WinSysPath)
+C:\WINDOWS\system32\COMCT232.OCX=$(WinSysPath)
+C:\WINDOWS\system32\MSCOMCT2.OCX=$(WinSysPath)
+C:\WINDOWS\system32\COMCT332.OCX=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=$(AppPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\WINDOWS\system32\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+C:\revmeu\table\Attack.txt=$(AppPath)
+C:\revmeu\table\data.grf=$(AppPath)
+C:\revmeu\table\ItemD.txt=$(AppPath)
+C:\revmeu\table\MapName.txt=$(AppPath)
+C:\revmeu\table\options.ini=$(AppPath)
+C:\revmeu\table\Sell.txt=$(AppPath)
+C:\revmeu\table\SkillD.txt=$(AppPath)
+C:\revmeu\table\Skillname.txt=$(AppPath)
+C:\revmeu\table\user.dat=$(AppPath)
+C:\revmeu\interface\bt_cancel.gif=$(AppPath)
+C:\revmeu\interface\bt_cancel_c.gif=$(AppPath)
+C:\revmeu\interface\bt_cancel_h.gif=$(AppPath)
+C:\revmeu\interface\bt_close.gif=$(AppPath)
+C:\revmeu\interface\bt_info.gif=$(AppPath)
+C:\revmeu\interface\bt_info_c.gif=$(AppPath)
+C:\revmeu\interface\bt_jobup.gif=$(AppPath)
+C:\revmeu\interface\bt_jobup_c.gif=$(AppPath)
+C:\revmeu\interface\bt_login.gif=$(AppPath)
+C:\revmeu\interface\bt_login_c.gif=$(AppPath)
+C:\revmeu\interface\bt_ok.gif=$(AppPath)
+C:\revmeu\interface\bt_ok_c.gif=$(AppPath)
+C:\revmeu\interface\bt_sell.gif=$(AppPath)
+C:\revmeu\interface\bt_sell_c.gif=$(AppPath)
+C:\revmeu\interface\bt_use.gif=$(AppPath)
+C:\revmeu\interface\bt_use_c.gif=$(AppPath)
+
+[Package|Revemu|Configure Shared Files]
+Applicable=Yes
+C:\revmeu\revemu.exe=No
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=No
+C:\revmeu\table\Attack.txt=No
+C:\revmeu\table\data.grf=No
+C:\revmeu\table\ItemD.txt=No
+C:\revmeu\table\MapName.txt=No
+C:\revmeu\table\options.ini=No
+C:\revmeu\table\Sell.txt=No
+C:\revmeu\table\SkillD.txt=No
+C:\revmeu\table\Skillname.txt=No
+C:\revmeu\table\user.dat=No
+C:\revmeu\interface\bt_cancel.gif=No
+C:\revmeu\interface\bt_cancel_c.gif=No
+C:\revmeu\interface\bt_cancel_h.gif=No
+C:\revmeu\interface\bt_close.gif=No
+C:\revmeu\interface\bt_info.gif=No
+C:\revmeu\interface\bt_info_c.gif=No
+C:\revmeu\interface\bt_jobup.gif=No
+C:\revmeu\interface\bt_jobup_c.gif=No
+C:\revmeu\interface\bt_login.gif=No
+C:\revmeu\interface\bt_login_c.gif=No
+C:\revmeu\interface\bt_ok.gif=No
+C:\revmeu\interface\bt_ok_c.gif=No
+C:\revmeu\interface\bt_sell.gif=No
+C:\revmeu\interface\bt_sell_c.gif=No
+C:\revmeu\interface\bt_use.gif=No
+C:\revmeu\interface\bt_use_c.gif=No
+
+[Package|Revemu|Distribution]
+Type=single
+Size=
+Title=Revemu
+
+[Package|Revemu|Package]
+PackageFolder=C:\revmeu\Package
+ProjectFolder=C:\revmeu
+ServerSideCab=
+File1=C:\revmeu\Package\setup.exe
+File2=C:\revmeu\Package\Setup.Lst
+File3=C:\revmeu\Package\revemu.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz
+
+[Package|Revemu|IconGroups]
+Group0=Revemu
+PrivateGroup0=-1
+Parent0=$(Programs)
+
+[Package|Revemu|Revemu]
+Icon1=revemu.exe
+Title1=Revemu
+StartIn1=$(AppPath)
+Key1=Icon1

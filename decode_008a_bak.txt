@@ -1,0 +1,219 @@
+Private Function Decode_008A(InData As String) As String
+On Error GoTo errie
+Dim X As Integer
+
+            If Mid(InData, 7, 4) <> Chr(0) + Chr(0) + Chr(0) + Chr(0) Then checkKS Mid(InData, 3, 4), Mid(InData, 7, 4)
+            If Mid(InData, 3, 4) = AccountID Then
+                    If (Mid(InData, 7, 4) <> Chr(0) + Chr(0) + Chr(0) + Chr(0)) Then InFight = True
+                    Dim Itemname As String
+                    'Stat Hex(Asc(Mid(InData, 26, 1))) & " "
+                    Itemname = IsItem(Mid(InData, 7, 4))
+                    If Itemname <> "" Then
+                        Stat "You pick up [" & Itemname & "]..." & vbCrLf
+                        GoTo end8A
+                    End If
+                    If Mid(InData, 7, 4) = Chr(0) + Chr(0) + Chr(0) + Chr(0) Then
+                        InFight = False
+                        Select Case MakePort(Mid(InData, 27, 2)) - 2
+                            Case 0
+                                If Not Sitting Then Stat "You're sitting..." & vbCrLf
+                                Sitting = True
+                                IsSitting = False
+                                IsStanding = False
+                            Case 1
+                                If Sitting Then Stat "You're standing..." & vbCrLf
+                                Sitting = False
+                                IsSitting = False
+                                IsStanding = False
+                            Case Else
+                                'If (Find_Item("Green_Potion") > 0) Then
+                                '    Stat "Unknow Status! use [Green_Potion]..." & vbCrLf
+                                '    Winsock_SendPacket Make2Byte(&HA7) & _
+                                '    Make2Byte(Find_Item("Green_Potion")) & AccountID, True
+                                'End If
+                                'print_packet Left(InData, chopnumber), "Unknow Status"
+                        End Select
+        
+                        GoTo end8A
+                    End If
+                    If (Asc(Mid(InData, 25, 1)) = 1 Or Asc(Mid(InData, 25, 1)) = 2) And (Mid(InData, 7, 4) <> Chr(0) + Chr(0) + Chr(0) + Chr(0)) And (MakePort(Mid(InData, 23, 2)) < 10000) Then
+                            'print_packet Left(InData, chopnumber), CStr(MakePort(Mid(InData, 23, 2))) & " Damage"
+                            Dim IsFound As Boolean
+                            Dim TmpMonsterName As String
+                            IsFound = False
+                            TmpMonsterName = "Unknow"
+                            If UBound(MonsterList) > 0 Then
+                            For X = 0 To UBound(MonsterList) - 1
+                                If (MonsterList(X).ID = Mid(InData, 7, 4)) Then
+                                    MonsterList(X).Time = 0
+                                    TmpMonsterName = Return_MonsterName(MonsterList(X).NameID)
+                                    If Mid(InData, 3, 4) = Tanker.ID Then
+                                        CurAtkMonster = MonsterList(X)
+                                        oldSelectPos = CurAtkMonster.pos
+                                    End If
+                                    Exit For
+                                End If
+                            Next
+                            End If
+                        Dim tmpPlayer As String
+                        If Mid(InData, 3, 4) = AccountID Then
+                            ReSetCounter = 0
+                            tmpPlayer = "You "
+                        Else
+                            tmpPlayer = "Tanker "
+                        End If
+                        If (TmpMonsterName <> "") And Not Pickup And CurAtkMonster.NameID > 0 Then
+                            If (Not MakeDamage) And Mid(InData, 3, 4) = AccountID Then
+                                Stat tmpPlayer & "locked, [" + TmpMonsterName + "] as a Target..." + vbCrLf
+                                IsLock = True
+                            End If
+                            If CStr(MakePort(Mid(InData, 23, 2))) > 0 And CurAtkMonster.ID <> "" Then
+                                Stat tmpPlayer & "Attack to [" + TmpMonsterName + "], " & CStr(MakePort(Mid(InData, 23, 2)))
+                                If Asc(Mid(InData, 27, 1)) = 10 Then Stat " Critical!", vbBlue Else Stat " Damage"
+                                If Asc(Mid(InData, 25, 1)) > 1 Then Stat " " & Asc(Mid(InData, 25, 1)) & " times", &HFF00
+                                Stat vbCrLf
+                                If Mid(InData, 3, 4) = AccountID Then MakeDamage = True
+                            Else
+                                Stat tmpPlayer & "Attack to [" + TmpMonsterName + "], "
+                                Stat "Miss!" + vbCrLf, vbBlue
+                            End If
+                        End If
+                    End If
+                    ReSetCounter = 0
+                    AttackCounter = 0
+                    DamageCounter = 0
+                    PlayerMoveTime = 0
+                    BlockMove = False
+            ElseIf (Not isPlayer(Mid(InData, 3, 4))) And Mid(InData, 7, 4) = AccountID And MakePort(Mid(InData, 23, 2)) < 10000 Then
+                    If Pickup And Not HaveRare Then
+                        tmrPickup.Enabled = False
+                        Pickup = False
+                        Pickuptime = 0
+                        TryPicktime = 0
+                    End If
+                    If MakePort(Mid(InData, 23, 2)) > 0 Then
+                        PlayerMoveTime = 0
+                        'TmrMove.Enabled = False
+                        BlockMove = False
+                    End If
+                    If Sitting Then
+                        Stat "Monster Attacks, You stand up..." + vbCrLf
+                        Winsock_SendPacket Chr(&H89) + Chr(0) + Chr(0) + Chr(0) + Chr(0) + _
+                        Chr(0) + Chr(3), True
+                        IsStanding = True
+                        IsSitting = False
+                    End If
+                    Dim tmpname As String
+                    Dim found As Boolean
+                    If Mid(InData, 3, 4) = CurAtkMonster.ID And (CurMonsterName <> "") And Not MakeDamage Then
+                        tmpname = CurMonsterName
+                        TraceMons = False
+                        Update_CurrentMonster
+                    Else
+                        tmpname = "Unknow"
+                        found = False
+                        If UBound(MonsterList) > 0 Then
+                        For X = 0 To UBound(MonsterList) - 1
+                            If Mid(InData, 3, 4) = MonsterList(X).ID And Not HaveRare Then
+                                found = True
+                                tmpname = Return_MonsterName(MonsterList(X).NameID)
+                                If Not MonsterList(X).IsAttack And Mid(InData, 7, 4) = AccountID And ((Players(number).Class <> "Mage" And Players(number).Class <> "Wizard" And Players(number).Class <> "Sage" And Players(number).Class <> "Priest" And Players(number).Class <> "Acolyte") Or UseWeapon) Then
+                                        If CurAtkMonster.NameID = 0 Then
+                                            CurAtkMonster = MonsterList(X)
+                                            oldSelectPos = CurAtkMonster.pos
+                                            CurMonsterName = tmpname
+                                            Check_Equip tmpname
+                                            Check_Accessory tmpname
+                                            Update_CurrentMonster
+                                        ElseIf Not MakeDamage And EvalNorm(CurPos, CurAtkMonster.pos) > EvalNorm(CurPos, MonsterList(X).pos) Then
+                                            CurAtkMonster = MonsterList(X)
+                                            Check_Equip tmpname
+                                            Check_Accessory tmpname
+                                            oldSelectPos = CurAtkMonster.pos
+                                            CurMonsterName = tmpname
+                                            Update_CurrentMonster
+                                        End If
+                                    tmrAggro.Enabled = False
+                                    IsAggro = True
+                                    
+                                ElseIf Not MonsterList(X).IsAttack And Mid(InData, 7, 4) = AccountID And ((Players(number).Class <> "Mage" And Players(number).Class <> "Wizard" And Players(number).Class <> "Sage" And Players(number).Class <> "Priest" And Players(number).Class <> "Acolyte") Or UseWeapon) Then
+                                    If CurAtkMonster.NameID = 0 Then
+                                        CurAtkMonster = MonsterList(X)
+                                        Check_Equip tmpname
+                                        Check_Accessory tmpname
+                                        CurMonsterName = tmpname
+                                        Update_CurrentMonster
+                                    End If
+                                End If
+                                Exit For
+                            End If
+                        Next
+                        End If
+                        SendAttack
+                    End If
+                    DamageCounter = DamageCounter + MakePort(Mid(InData, 23, 2))
+                    If MakePort(Mid(InData, 23, 2)) <= Players(number).HP Then
+                        Players(number).HP = Players(number).HP - MakePort(Mid(InData, 23, 2))
+                    Else
+                        Players(number).HP = 0
+                    End If
+                    frmPlayer.LabHP.Caption = CStr(Players(number).HP) + "  /  " + CStr(Players(number).MaxHP)
+                    If MakePort(Mid(InData, 23, 2)) > 0 Then
+                            Stat "[" + tmpname + "] Attack you, " + CStr(MakePort(Mid(InData, 23, 2))) + " Damage" + vbCrLf, vbRed
+                    Else
+                            Stat "[" + tmpname + "] Attack you, " + ", Miss!" + vbCrLf, &HAAAAAA
+                    End If
+                    If (Players(number).MaxHP > 0) Then
+                        If (Players(number).HP >= 0) Then frmPlayer.tabHP.width = (Players(number).HP / Players(number).MaxHP) * (frmPlayer.tabHPBg.width - 20)
+                        If (Players(number).HP / Players(number).MaxHP > 0.25) Then
+                           frmPlayer.tabHP.BackColor = &HC000&
+                        Else
+                            frmPlayer.tabHP.BackColor = &HC0&
+                        End If
+                    End If
+                    SendAttack
+                    InFight = True
+                    IsDamage = True
+                    AttackCounter = AttackCounter + 1
+                        
+                        '------------------------------ Check Aggrolist ------------------------
+                        Dim tmpmonsname As String
+                        tmpmonsname = "None"
+                        If UBound(MonsterList) > 0 Then
+                            For X = 0 To UBound(MonsterList) - 1
+                                If Mid(InData, 3, 4) = MonsterList(X).ID Then
+                                    tmpmonsname = Return_MonsterName(MonsterList(X).NameID)
+                                    Exit For
+                                End If
+                            Next
+                        End If
+                        Dim Y As Integer
+                        If UBound(MobName) > 0 Then
+                        For Y = 0 To UBound(MobName)
+                            If InStr(LCase(tmpmonsname), LCase(MobName(Y))) > 0 Then
+                                found = False
+                                If UBound(Aggro) > 0 Then
+                                    For X = 0 To UBound(Aggro) - 1
+                                        If Aggro(X).ID = Mid(InData, 3, 4) Then
+                                            found = True
+                                            Exit For
+                                        End If
+                                    Next
+                                End If
+                                If Not found Then
+                                    Aggro(UBound(Aggro)).ID = Mid(InData, 3, 4)
+                                    ReDim Preserve Aggro(UBound(Aggro) + 1)
+                                    Exit For
+                                End If
+                            End If
+                        Next
+                        End If
+            End If
+            Check_Tele
+end8A:
+Decode_008A = ""
+Exit Function
+errie:
+Decode_008A = "ERROR!!! [Decode_008A] " & Err.Description
+Err.Clear
+End Function

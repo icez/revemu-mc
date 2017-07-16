@@ -1,0 +1,117 @@
+Private Function Decode_0114(InData As String) As String
+On Error GoTo errie
+    Dim damage As Long
+    Dim X As Long
+    Dim Src$, target$, SkillName$
+    'Prevent KS
+    If (Mid(InData, 5, 4) = AccountID) Then
+        Src = "You"
+    ElseIf Get_PeopleName(Mid(InData, 5, 4)) <> "Unknow" Then
+        Src = "[" & Get_PeopleName(Mid(InData, 5, 4)) & "]"
+    ElseIf Get_MonsName(Mid(InData, 5, 4)) <> "Unknow" Then
+        Src = "[" & Get_MonsName(Mid(InData, 5, 4)) & "]"
+    Else
+        Src = "[Unknow]"
+    End If
+
+    If MakePort(Mid(InData, 3, 2)) - 1 < UBound(SkillIDName) Then SkillName = SkillIDName(MakePort(Mid(InData, 3, 2)) - 1).Name
+    
+    If Mid(InData, 5, 4) = AccountID Then
+        If MakePort(Mid(InData, 3, 2)) = 272 Then
+            UseChain = False
+            If Is_UseFCSkill(Get_MonsName(Mid(InData, 9, 4))) And FCSkill.Use And Players(number).Sp >= (Players(number).maxsp * FCSkill.Sp) And CurSpirit > 0 Then
+                UseFinish = True
+                X = Find_SkillId("MO_COMBOFINISH")
+                If FCSkill.Lv > SkillChar(X).MaxLV Then FCSkill.Lv = SkillChar(X).MaxLV
+                If X > 0 Then Send_Use_Skill SkillChar(X).ID, FCSkill.Lv, AccountID
+            Else
+                UseFinish = False
+            End If
+        End If
+        If MakePort(Mid(InData, 3, 2)) = 263 Then
+            If Is_UseCCSkill(Get_MonsName(Mid(InData, 9, 4))) And CCSkill.Use And Players(number).Sp >= (Players(number).maxsp * CCSkill.Sp) Then
+                UseChain = True
+                X = Find_SkillId("MO_CHAINCOMBO")
+                If CCSkill.Lv > SkillChar(X).MaxLV Then CCSkill.Lv = SkillChar(X).MaxLV
+                If X > 0 Then Send_Use_Skill SkillChar(X).ID, CCSkill.Lv, AccountID
+            Else
+                UseChain = False
+            End If
+        End If
+        If MakePort(Mid(InData, 3, 2)) = 273 Then UseFinish = False
+    End If
+
+    If (Mid(InData, 9, 4) = AccountID) Then
+        target = "You"
+    ElseIf Get_PeopleName(Mid(InData, 9, 4)) <> "Unknow" Then
+        target = "[" & Get_PeopleName(Mid(InData, 9, 4)) & "]"
+    ElseIf Get_MonsName(Mid(InData, 9, 4)) <> "Unknow" Then
+        target = "[" & Get_MonsName(Mid(InData, 9, 4)) & "]"
+    Else
+        target = "[Unknow]"
+    End If
+    
+    If CurAtkMonster.ID = Mid(InData, 9, 4) And Mid(InData, 5, 4) <> AccountID And _
+        MakePort(Mid(InData, 3, 2)) = 12 Then
+        Chat "[" & Src & "] using Safety Wall your monster!"
+        response_mode = 4
+        tmrChatResponse.Interval = RandomNumber(1000, 1800)
+        tmrChatResponse.Enabled = True
+    End If
+   If CurAtkMonster.ID = Mid(InData, 9, 4) And Mid(InData, 5, 4) <> AccountID And _
+        MakePort(Mid(InData, 3, 2)) = 28 Then
+        Chat "[" & Src & "] using Heal your monster!"
+        response_mode = 2
+        tmrChatResponse.Interval = RandomNumber(1000, 1800)
+        tmrChatResponse.Enabled = True
+    End If
+    If CurAtkMonster.ID = Mid(InData, 9, 4) And Mid(InData, 5, 4) <> AccountID And _
+        MakePort(Mid(InData, 3, 2)) = 29 Then
+        Chat "[" & Src & "] using Increase Agi your monster!"
+        response_mode = 3
+        tmrChatResponse.Interval = RandomNumber(1000, 1800)
+        tmrChatResponse.Enabled = True
+    End If
+    If CurAtkMonster.ID = Mid(InData, 9, 4) And Mid(InData, 5, 4) <> AccountID And _
+        Asc(Mid(InData, 3, 1)) = 34 Then
+        Chat "[" & Src & "] using Blessing your monster!"
+        response_mode = 4
+        tmrChatResponse.Interval = RandomNumber(1000, 1800)
+        tmrChatResponse.Enabled = True
+    End If
+
+    If (CurMonsterName <> "" And CurMonsterName <> "None" And CurAtkMonster.NameID > 0) And Mid(InData, 5, 4) = AccountID Then
+        If (Not MakeDamage) Then
+            Stat "You locked, [" + target + "] as a Target..." + vbCrLf
+            IsLock = True
+        End If
+        If CStr(MakePort(Mid(InData, 21, 2))) > 0 Then
+            'Stat "[" + frmSkill.Return_SkillName(Asc(Mid(InData, 3, 1))) + "] Skill to [" + Return_MonsterName(CurAtkMonster.Nameid) + "], " + CStr(MakePort(Mid(InData, 25, 2))) + " Damage" + vbCrLf
+            MakeDamage = True
+            SkillWait = False
+            tmrSkillDelay.Enabled = False
+            SkillCounter = SkillCounter + 1
+            Check_ResetCounter
+        Else
+            'Stat "[" + frmSkill.Return_SkillName(Hex(Asc(Mid(InData, 3, 1)))) + "] Skill to " + Return_MonsterName(CurAtkMonster.Nameid) + ", " + "Miss!" + vbCrLf
+        End If
+        Casting = False
+        DamageCounter = 0
+        AttackCounter = 0
+        AttCounter = AttCounter + 1
+    End If
+    damage = MakePort(Mid(InData, 25, 2))
+    Stat Src & " using skill [" & SkillName & "]" & IIf(Mid(InData, 5, 4) = AccountID, "[" & SkillCounter & "]", "") & " on " & target
+    If damage = 0 Then
+        Stat ", Miss!", vbBlue
+    ElseIf damage <> 35536 Then
+        Stat ", " + CStr(damage) & " Damage"
+    End If
+    Stat vbCrLf
+    checkKS Mid(InData, 5, 4), Mid(InData, 9, 4)
+    Decode_0114 = ""
+    Exit Function
+errie:
+Decode_0114 = "ERROR!!! [Decode_0114] " & Err.Description
+Err.Clear
+End Function

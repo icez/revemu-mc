@@ -1,0 +1,102 @@
+Private Sub EstimateClosestMonster()
+print_errror "sub EstimateClosestMonster"
+On Error GoTo errie
+Check_Rest
+If Sitting Or IsSitting Or ActionDelay > 0 Then Exit Sub
+If (PartyMode) Or (Pickup) Or (Not Check_Attack) Or SellMode Or _
+BackWP Or MoveOnly Or (DetectPortal) Or _
+(Not AutoAI) Or AlwaySit Or TmrDeal.Enabled Or ModAI Or Not ChkAtk Then Exit Sub
+'If Players(Number).Weight >= (0.49 * Players(Number).MaxWeight) Then
+'    MDIfrmMain.Caption = "Revemu (Beta " & App.Major & "." & App.Minor & "." & App.Revision & ") - Warning (Wieght reach 49%)"
+'    Exit Sub
+'End If
+Dim i As Integer, j&
+Dim Bestmonster As Integer
+Dim Sel_distance As Integer
+Dim Cur_Distance As Integer
+Dim bound_distance As Integer
+Dim found As Boolean, scFound As Boolean
+If StopAction Then Exit Sub
+Sel_distance = 30000
+Cur_Distance = 0
+found = False
+Pickuptime = 0
+TryPicktime = 0
+Tracing = False
+'Stat "NameID = " & CStr(CurAtkMonster(NumberMons).NameID) & vbCrLf
+If CurAtkMonster.NameID > 0 Then Exit Sub
+If UBound(MonsterList) > 0 Then
+For i = 0 To UBound(MonsterList) - 1
+    If MonsterList(i).NoAttack Then GoTo endloop
+    If MonsterList(i).IsPet Then GoTo endloop
+    If Not isKillmob Then
+        If MonsterList(i).Time > 1 Then GoTo endloop
+        If CloseAnyPlayer(MonsterList(i).pos, MonsterList(i).NextPos) Then
+            MonsterList(i).CantGo = True
+            GoTo endloop
+        End If
+    End If
+    'If MonsterList(i).CantGo Then GoTo endloop
+    If (MonsterList(i).IsFollow) And Not isKillmob Then GoTo endloop
+    If (MonsterList(i).IsAttack) And Not killsteal Then GoTo endloop
+    If Not CanGO(CurPos, MonsterList(i).pos) Then
+        MonsterList(i).CantGo = True
+        GoTo endloop
+    End If
+    
+    Cur_Distance = EvalNorm(MonsterList(i).pos, CurPos)
+    If IsSMAgg(MonsterList(i).Name) Then
+        Sel_distance = Cur_Distance
+        Bestmonster = i
+        found = True
+        Exit For
+    End If
+    If (Automove) Then
+        bound_distance = 20
+    Else
+        bound_distance = Range
+        If IsUseRange Then bound_distance = RangeSet
+    End If
+    If Cur_Distance < Sel_distance And Cur_Distance < bound_distance And IsSMR(MonsterList(i).Name) And CanUseAttack(MonsterList(i).Name) Then
+        Sel_distance = Cur_Distance
+        Bestmonster = i
+        found = True
+    End If
+endloop:
+Next
+End If
+If found And Sitting And ((Not IsSPWait) Or (Players(number).Sp > (Players(number).maxsp * SPWait))) And ((Not IsAutorest) Or (Players(number).HP >= (Players(number).MaxHP * HPWait))) Then
+    Stat "You stand up..." + vbCrLf
+    Winsock_SendPacket Chr(&H64 + &H25) + Chr(0) + Chr(0) + Chr(0) + Chr(0) + Chr(0) + _
+    Chr(3), True
+    'Sitting = False
+End If
+If (Not Sitting) And found And Return_MonsterName(MonsterList(Bestmonster).NameID) <> "" And Not ModAI Then
+    CurMonsterName = Return_MonsterName(MonsterList(Bestmonster).NameID)
+    Stat "Select [" + CurMonsterName + "] as a Target, Locking..." + vbCrLf
+    SkillCounter = 0
+    SpellCounter = 0
+    CurAtkMonster = MonsterList(Bestmonster)
+    Check_Equip CurMonsterName
+    Check_Accessory CurMonsterName
+    Plot_Dot MonsterList(Bestmonster).pos, CurAtkColor
+    Aggro(0).ID = MonsterList(Bestmonster).ID
+    oldSelectPos = CurAtkMonster.pos
+    NumberMons = 0
+    Tracing = False
+    SendAction = True
+    SendAttack
+    Update_CurrentMonster
+    NomonsTimeCount = 0
+    InFight = False
+    MakeDamage = False
+    IsAggro = False
+    IsDamage = False
+    DamageCounter = 0
+    AttackCounter = 0
+End If
+Exit Sub
+errie:
+Err.Clear
+'ClearAll
+End Sub
